@@ -6,33 +6,28 @@
 /*   By: jcampane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 18:43:17 by jcampane          #+#    #+#             */
-/*   Updated: 2021/04/16 14:38:02 by jcampane         ###   ########.fr       */
+/*   Updated: 2021/04/19 11:42:09 by jcampane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-int	longitud(char *cad);
-int	bucle(char *str, char *to_find, int a, int b);
+int		longitud(char *cad);
+char	*bucle(char *str, char *to_find);
+int		cadena(char *str, char *to_find);
 
 char	*ft_strstr(char *str, char *to_find)
 {
-	int			a;
-	int			b;
-	int			c;
-	static int	d;
+	char	*a;
+	int		b;
 
-	c = 0;
-	a = longitud(str);
 	b = longitud(to_find);
 	if (b == 0)
 		return (str);
-	else if (b > a)
-		return (NULL);
 	else
 	{
-		d = bucle(str, to_find, a, b);
-		return (&str[d]);
+		a = bucle(str, to_find);
+		return (a);
 	}
 }
 
@@ -48,26 +43,28 @@ int	longitud(char *cad)
 	return (i);
 }
 
-int	bucle(char *str, char *to_find, int a, int b)
+char	*bucle(char *str, char *to_find)
 {
-	static int	y;
-	int			c;
-	int			z;
-
-	z = 0;
-	c = 0;
-	while (c <= a)
+	while (*str)
 	{
-		while (str[c] == to_find[c])
+		if (*str == *to_find && cadena(str, to_find) == 1)
 		{
-			if (z == b)
-			{
-				y = c - b;
-			}
-			c++;
-			z++;
+			printf("done");
+			return (&*str);
 		}
-		c++;
+		str++;
 	}
-	return (y);
+	return (NULL);
+}
+
+int	cadena(char *str, char *to_find)
+{
+	while (*str && *to_find)
+	{
+		if (*str != *to_find)
+			return (0);
+		(*str)++;
+		(*to_find)++;
+	}
+	return (1);
 }
